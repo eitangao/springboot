@@ -25,6 +25,11 @@
 	</properties>
 
 	<dependencies>
+        <dependency><!--hot deployment maven dependency-->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -47,6 +52,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork><!--open the hot deployment function-->
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>
