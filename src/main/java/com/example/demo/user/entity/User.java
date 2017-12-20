@@ -1,9 +1,27 @@
 package com.example.demo.user.entity;
 
+import java.util.Date;
+
 public class User {
     int id;
     String userName;
     String password;
+    Date ctm;
+    public User(){
+    }
+    public User(String userName,String password){
+        this.userName=userName;
+        this.password=password;
+        this.ctm=new Date();
+    }
+
+    public Date getCtm() {
+        return ctm;
+    }
+
+    public void setCtm(Date ctm) {
+        this.ctm = ctm;
+    }
 
     public int getId() {
         return id;
