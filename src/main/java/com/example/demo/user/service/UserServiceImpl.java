@@ -3,7 +3,6 @@ package com.example.demo.user.service;
 import com.example.demo.user.entity.User;
 import com.example.demo.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 
