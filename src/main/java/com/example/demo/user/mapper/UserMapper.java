@@ -18,4 +18,12 @@ public interface UserMapper {
             @Result(property = "ctm", column = "create_time")
     })
     User getUserById(Integer id);
+    @Select("select id from user where user_name=#{userName}")
+    @Results({
+            @Result(property = "id",column = "id")
+    })
+    Integer getUserIdByName(String userName);
+    @Insert("insert into user(id,user_name,password,createTime) values(#{id},#{userName,#{password},#{ctm}})")
+    void addUser(User user);
+
 }

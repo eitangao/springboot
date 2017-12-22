@@ -6,10 +6,7 @@ import com.example.demo.user.entity.User;
 import com.example.demo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 
@@ -36,5 +33,7 @@ public class UserController implements Serializable{
         }
         return ResponseEntity.ok(r);
     }
+    @PostMapping(value="/register")
+    public ResponseEntity<JsonResult> register()
 
 }
