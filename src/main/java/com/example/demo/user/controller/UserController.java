@@ -33,7 +33,27 @@ public class UserController implements Serializable{
         }
         return ResponseEntity.ok(r);
     }
-    @PostMapping(value="/register")
-    public ResponseEntity<JsonResult> register()
+    @RequestMapping(value="/register/{userName}/{password}")
+    public ResponseEntity<JsonResult> register(@PathVariable(value = "userName") String userName,@PathVariable(value = "password") String password){
+        JsonResult r=new JsonResult();
+        try{
+            if(userServiceImpl.getUserIdByName(userName)!=null){
+                r.setResult("The userName has already existed!");
+                r.setStatus("ok");
+            }
+            else{
+                User user=new User(userName,password);
+                userServiceImpl.addUser(user);
+                r.setResult("Register successfully!");
+                r.setStatus("ok");
+            }
+        }catch(Exception e){
+            r.setResult(e.getClass().getName()+":"+e.getMessage());
+            r.setStatus("error");
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(r);
+
+    }
 
 }

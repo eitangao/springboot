@@ -23,7 +23,7 @@ public interface UserMapper {
             @Result(property = "id",column = "id")
     })
     Integer getUserIdByName(String userName);
-    @Insert("insert into user(id,user_name,password,createTime) values(#{id},#{userName,#{password},#{ctm}})")
+    @Insert("insert into user(user_name,password,create_time) values(#{userName},#{password},#{ctm})")
     void addUser(User user);
 
 }

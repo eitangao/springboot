@@ -23,10 +23,6 @@ public class UserServiceImpl implements UserService{
     public void addUser(User user) {
         userMapper.addUser(user);
 
-
     }
 
-    {
-
-    }
 }
