@@ -33,11 +33,17 @@ public class UserController implements Serializable{
         }
         return ResponseEntity.ok(r);
     }
-    @RequestMapping(value="/register/{userName}/{password}")
-    public ResponseEntity<JsonResult> register(@PathVariable(value = "userName") String userName,@PathVariable(value = "password") String password){
+    @RequestMapping(value="/register/{userName}/{password}/{password2}")
+    public ResponseEntity<JsonResult> register(@PathVariable(value = "userName") String userName,
+                                               @PathVariable(value = "password") String password,
+                                               @PathVariable(value = "password2") String password2){
         JsonResult r=new JsonResult();
         try{
-            if(userServiceImpl.getUserIdByName(userName)!=null){
+            if(password.equals(password2)==false){
+                r.setStatus("ok");
+                r.setResult("Please enter the same password!");
+            }
+            else if(userServiceImpl.getUserIdByName(userName)!=null){
                 r.setResult("The userName has already existed!");
                 r.setStatus("ok");
             }
@@ -54,6 +60,31 @@ public class UserController implements Serializable{
         }
         return ResponseEntity.ok(r);
 
+    }
+    @RequestMapping(value="/login/{userName}/{password}")
+    public ResponseEntity<JsonResult> login(@PathVariable String userName,@PathVariable String password){
+        JsonResult r=new JsonResult();
+        try{
+            Integer id=userServiceImpl.getUserIdByName(userName);
+            if(id==null){
+                r.setResult("User "+userName+" does not exist!");
+            }
+            else{
+                User user=userServiceImpl.getUserById(id);
+                if(user.getPassword().equals(password)==false){
+                    r.setResult("Wrong password!");
+                }
+                else{
+                    r.setResult("Login successfully!");
+                }
+            }
+            r.setStatus("ok");
+        }catch(Exception e){
+            r.setResult(e.getClass().getName()+":"+e.getMessage());
+            r.setStatus("error");
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(r);
     }
 
 }
