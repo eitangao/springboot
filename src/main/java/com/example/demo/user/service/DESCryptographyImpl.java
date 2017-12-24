@@ -9,11 +9,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
-import java.io.IOException;
 
 @Service
 public class DESCryptographyImpl implements DESCryptography {
-    private final static String DES="DES";
     private final static String ENCODE="GBK";
     @Override
     public String encrypt(String data,String key) throws Exception {
@@ -23,7 +21,7 @@ public class DESCryptographyImpl implements DESCryptography {
     }
 
     @Override
-    public String decrypt(String data,String key) throws IOException,Exception {
+    public String decrypt(String data,String key) throws Exception {
         if(data==null)
             return null;
         BASE64Decoder decoder=new BASE64Decoder();
