@@ -1,14 +1,37 @@
 package com.example.demo.user.service;
 
 import org.springframework.stereotype.Service;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
+import java.io.IOException;
+
 @Service
 public class DESCryptographyImpl implements DESCryptography {
+    private final static String DES="DES";
+    private final static String ENCODE="GBK";
+    @Override
+    public String encrypt(String data,String key) throws Exception {
+        byte[] bt=encrypt(data.getBytes(ENCODE),key.getBytes(ENCODE));
+        String strs=new BASE64Encoder().encode(bt);
+        return strs;
+    }
+
+    @Override
+    public String decrypt(String data,String key) throws IOException,Exception {
+        if(data==null)
+            return null;
+        BASE64Decoder decoder=new BASE64Decoder();
+        byte[] buf=decoder.decodeBuffer(data);
+        byte[] bt=decrypt(buf,key.getBytes());
+        return new String(bt,ENCODE);
+    }
+
     @Override
     public byte[] encrypt(byte[] content, byte[] keyBytes) {
         try{
@@ -43,16 +66,16 @@ public class DESCryptographyImpl implements DESCryptography {
         return null;
     }
 
-    @Override
-    public String byteToHexString(byte[] bytes) {
-        StringBuffer sb=new StringBuffer(bytes.length);
-        String sTemp;
-        for(int i=0;i<bytes.length;i++){
-            sTemp=Integer.toHexString(0xFF&bytes[i]);
-            if(sTemp.length()<2)
-                sb.append(0);
-            sb.append(sTemp.toUpperCase());
-        }
-        return sb.toString();
-    }
+//    @Override
+//    public String byteToHexString(byte[] bytes) {
+//        StringBuffer sb=new StringBuffer(bytes.length);
+//        String sTemp;
+//        for(int i=0;i<bytes.length;i++){
+//            sTemp=Integer.toHexString(0xFF&bytes[i]);
+//            if(sTemp.length()<2)
+//                sb.append(0);
+//            sb.append(sTemp.toUpperCase());
+//        }
+//        return sb.toString();
+//    }
 }

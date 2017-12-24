@@ -41,7 +41,7 @@ public class UserController implements Serializable{
             else{
 //                password=desCryptographyImpl.byteToHexString
 //                        (desCryptographyImpl.encrypt(password.getBytes(),key.getBytes()));
-                password=new String(desCryptographyImpl.encrypt(password.getBytes(),key.getBytes()));
+                password=desCryptographyImpl.encrypt(password,key);
                 User user=new User(userName,password);
                 userServiceImpl.addUser(user);
                 r.setResult("Register successfully!");
@@ -60,13 +60,14 @@ public class UserController implements Serializable{
         JsonResult r=new JsonResult();
         try{
             User user=userServiceImpl.getUserByName(userName);
-//            String decPassword=desCryptographyImpl.byteToHexString
-//                    (desCryptographyImpl.decrypt(user.getPassword(),key.getBytes()));
-            String decPassword=new String(desCryptographyImpl.decrypt(user.getPassword().getBytes(),key.getBytes()));
+
             if(user==null){
                 r.setResult("User "+userName+" does not exist!");
             }
             else{
+                //            String decPassword=desCryptographyImpl.byteToHexString
+//                    (desCryptographyImpl.decrypt(user.getPassword(),key.getBytes()));
+                String decPassword=desCryptographyImpl.decrypt(user.getPassword(),key);
                 if(decPassword.equals(password)==false){
                     r.setResult("Wrong password!");
                 }
