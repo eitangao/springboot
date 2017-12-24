@@ -11,8 +11,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper userMapper;
     @Override
-    public User getUserById(Integer id) {
-        return userMapper.getUserById(id);
+    public User getUserByName(String  userName) {
+        return userMapper.getUserByName(userName);
     }
 
     @Override
